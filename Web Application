@@ -1,0 +1,16 @@
+from flask import Flask, request, jsonify
+import numpy as np
+
+app = Flask(__name__)
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    file = request.files['file']
+    img = cv2.imdecode(np.fromstring(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
+    img = cv2.resize(img, (224, 224))
+    design_quality = model.predict(img.reshape(1, 224, 224, 3))
+    feedback = generate_feedback(design_quality)
+    return jsonify({'feedback': feedback})
+
+if __name__ == '__main__':
+    app.run(debug=True)
