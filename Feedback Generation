@@ -1,0 +1,16 @@
+import nltk
+from nltk.tokenize import sent_tokenize
+
+nltk.download('punkt')
+
+def generate_feedback(design_quality):
+    if design_quality > 0.8:
+        feedback = "Your design is excellent! Keep up the good work."
+    else:
+        feedback = "Consider improving the color balance and typography."
+    return feedback
+
+# Example usage
+design_quality = model.predict(images[0].reshape(1, 224, 224, 3))
+feedback = generate_feedback(design_quality)
+print(feedback)
